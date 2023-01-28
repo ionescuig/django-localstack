@@ -1,0 +1,12 @@
+# Your gitignored files
+
+
+# Environments
+.venv/
+
+
+# LocalStack - AWS Local
+# Uncomment the right one for you:
+# .envs/
+# .envs/production/
+.localstack/
