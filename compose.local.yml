@@ -1,0 +1,42 @@
+version: "1"
+
+services:
+  # Your services. This is an example for django
+  # django:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/local/django/Dockerfile
+  #   image: local_django
+  #   container_name: local_django
+  #   ports:
+  #     - 8000:8000
+  #   depends_on:
+  #     - localstack
+  #   volumes:
+  #     - ./src/my-app:/src/my-app
+  #   env_file:
+  #     - ./.envs/local/.django
+  #   command: /start
+
+
+  localstack:
+    build:
+      context: .
+      dockerfile: ./docker/local/localstack/Dockerfile
+    image: local_localstack
+    container_name: local_localstack
+    hostname: localstack
+    ports:
+      - 4566:4566                               # LocalStack Gateway
+    environment:
+      - SERVICES=s3                             # In this case we are using only s3
+      - INFO=1
+      - DATA_DIR=/tmp/localstack/data
+      # - PERSISTENCE=1                         # for PRO version instead of DATA_DIR
+    volumes:
+      - "./docker/local/localstack:/docker-entrypoint-initaws.d"
+      - "./.localstack:/tmp/localstack"
+      # - "./.localstack:/var/lib/localstack"   # for newer versions instead of :/tmp/localstack
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    env_file:
+      - ./.envs/local/.localstack

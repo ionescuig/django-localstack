@@ -1,0 +1,17 @@
+# Localstack will not be used in prod
+# Your services. This is an example for django.
+
+# version: "1"
+
+# services:
+#   django:
+#     build:
+#       context: .
+#       dockerfile: ./docker/production/django/Dockerfile
+#     image: production_django
+#     container_name: django
+#     expose:
+#       - 8000
+#     env_file:
+#       - ./.envs/production/.django
+#     command: /start
